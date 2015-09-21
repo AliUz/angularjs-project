@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+    <head>
+        <title>Discount Ascii Warehouse</title>
+        <base href="/">
+    </head>
+        <body>
+
+        <div>
+            <div class="content" ui-view="content"> </div>
+        </div>
+        </body>
+
+         <!-- inject-vendor:js -->
+        <script src="/bower_modules/jquery/dist/jquery.js"></script>
+        <script src="/bower_modules/angular/angular.js"></script>
+        <script src="/bower_modules/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="/bower_modules/oboe/dist/oboe-browser.min.js"></script>
+        <!-- endinject -->
+
+        <!-- inject:js -->
+        <script src="/app/app.module.js"></script>
+        <script src="/app/blocks/router/router.module.js"></script>
+        <script src="/app/blocks/router/router.js"></script>
+        <script src="/app/dataservice/dataservice.module.js"></script>
+        <script src="/app/dataservice/dataservice.js"></script>
+        <script src="/app/products/products.module.js"></script>
+        <script src="/app/products/products.route.js"></script>
+        <script src="/app/products/products.js"></script>
+        <script src="/app/header/header.module.js"></script>
+        <script src="/app/header/header.route.js"></script>
+        <!-- endinject -->
+
+</html>
