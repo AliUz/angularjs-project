@@ -5,7 +5,9 @@
         'app.dataservice',
         'app.products',
         'app.header',
-        'app.router'
+        'app.router',
+        'app.filter',
+        'app.directives'
     ]);
 
 })();

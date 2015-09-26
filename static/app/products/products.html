@@ -1,1 +1,48 @@
-<div ng-model='vm.name'> Hello this is products! {{vm.name}}</div>
+<div class='top-bar'>
+
+<div class='row'>
+<label for='sort'> Sort By </label>
+<li class="waves-effect waves-light btn" ng-model='vm.sortParam' ng-click='vm.sort("size")'>Size</li>
+<li class="waves-effect waves-light btn" ng-model='vm.sortParam' ng-click='vm.sort("price")'>Price</li>
+<li class="waves-effect waves-light btn" ng-model='vm.sortParam' ng-click='vm.sort("id")'>Id</li>
+</div>
+<!-- <div class='row'>
+<ul class='breadcrumbs'>
+<li class="waves-effect waves-light btn" ng-model='vm.sortParam' ng-click='vm.sort("size")'>Size</li>
+<li class="waves-effect waves-light btn" ng-model='vm.sortParam' ng-click='vm.sort("price")'>Price</li>
+<li class="waves-effect waves-light btn" ng-model='vm.sortParam' ng-click='vm.sort("id")'>Id</li>
+</ul>
+</div>
+
+<div class='row'>
+<ul class='breadcrumbs'>
+<li class="btn-floating btn-large waves-effect waves-light red" ng-model='vm.limitParam' ng-click='vm.productsPerPage(40)'>40</li>
+<li class="btn-floating btn-large waves-effect waves-light red" ng-model='vm.limitParam' ng-click='vm.productsPerPage(80)'>80</li>
+<li class="btn-floating btn-large waves-effect waves-light red" ng-model='vm.limitParam' ng-click='vm.productsPerPage(100)'>100</li>
+</ul>
+</div> -->
+</div>
+
+<!-- <div ng-model='vm.sortParam' ng-click='vm.sort("size")'>size</div> -->
+<!-- <div ng-model='vm.sortParam' ng-click='vm.sort("price")'>price</div> -->
+<!-- <div ng-model='vm.sortParam' ng-click='vm.sort("id")'>id</div> -->
+<!-- <div> per page: </div>
+<div ng-model='vm.limitParam' ng-click='vm.productsPerPage(40)'>40</div>
+<div ng-model='vm.limitParam' ng-click='vm.productsPerPage(80)'>80</div>
+<div ng-model='vm.limitParam' ng-click='vm.productsPerPage(100)'>100</div> -->
+
+<div class='flex-container' when-scroll-ends="vm.getProducts()">
+	<ul ng-repeat-start='product in vm.products track by product.id'> 
+		<li class="flex-item-face" style="font-size:{{product.size}}px"> {{ ::product.face }} </li>
+		<li class="flex-item-price"> {{ ::product.price / 100 | currency : "$": 2}} </li> 
+		<li class="flex-item-date"> {{ ::product.date | DateFilter }} 
+	</ul>
+	<div class='flex-item-ad' ng-if='vm.displayAd($index + 1)' ng-repeat-end> <img ng-src='/ad/?r={{$index}}'/> </div>
+<div>
+	
+	<div ng-if='!vm.isDone'> ~not end of catalogue~ </div>
+	<div ng-if='vm.isDone'> ~end of catalogue~ </div>
+
+
+
+

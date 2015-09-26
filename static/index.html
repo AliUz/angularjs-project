@@ -3,32 +3,44 @@
     <head>
         <title>Discount Ascii Warehouse</title>
         <base href="/">
+        <!-- inject:css -->
+        <link href="/content/style.css" rel="stylesheet">
+        <link href="/content/all.css" rel="stylesheet">
+        <!-- endinject -->        
     </head>
-        <body>
+    <body>
 
-        <div>
-            <div class="content" ui-view="content"> </div>
-        </div>
-        </body>
+    <div id='wrapper'>
+    <div class='wrapper-holder'>
+        <div id='header' ui-view="header"> </div>
+        <div class="container" ui-view="content"> </div>
+    </div>
+    </div>
+    </body>
 
-         <!-- inject-vendor:js -->
-        <script src="/bower_modules/jquery/dist/jquery.js"></script>
-        <script src="/bower_modules/angular/angular.js"></script>
-        <script src="/bower_modules/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="/bower_modules/oboe/dist/oboe-browser.min.js"></script>
-        <!-- endinject -->
+     <!-- inject-vendor:js -->
+    <script src="/bower_modules/jquery/dist/jquery.js"></script>
+    <script src="/bower_modules/angular/angular.js"></script>
+    <script src="/bower_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/bower_modules/oboe/dist/oboe-browser.min.js"></script>
+    <script src="/bower_modules/moment/moment.js"></script>
+    <!-- endinject -->
 
-        <!-- inject:js -->
-        <script src="/app/app.module.js"></script>
-        <script src="/app/blocks/router/router.module.js"></script>
-        <script src="/app/blocks/router/router.js"></script>
-        <script src="/app/dataservice/dataservice.module.js"></script>
-        <script src="/app/dataservice/dataservice.js"></script>
-        <script src="/app/products/products.module.js"></script>
-        <script src="/app/products/products.route.js"></script>
-        <script src="/app/products/products.js"></script>
-        <script src="/app/header/header.module.js"></script>
-        <script src="/app/header/header.route.js"></script>
-        <!-- endinject -->
+    <!-- inject:js -->
+    <script src="/app/app.module.js"></script>
+    <script src="/app/blocks/router/router.module.js"></script>
+    <script src="/app/blocks/router/router.js"></script>
+    <script src="/app/dataservice/dataservice.module.js"></script>
+    <script src="/app/dataservice/dataservice.js"></script>
+    <script src="/app/products/products.module.js"></script>
+    <script src="/app/products/products.route.js"></script>
+    <script src="/app/products/products.js"></script>
+    <script src="/app/header/header.module.js"></script>
+    <script src="/app/header/header.route.js"></script>
+    <script src="/app/filters/filter.module.js"></script>
+    <script src="/app/filters/filter.js"></script>
+    <script src="/app/directives/directives.module.js"></script>
+    <script src="/app/directives/directives.whenScrollEnds.js"></script>
+    <!-- endinject -->
 
 </html>
