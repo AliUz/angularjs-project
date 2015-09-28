@@ -5,7 +5,7 @@
         .module('app.products')
         .controller('Products', Products)
 
-    Products.$inject = ['Oboe'];
+    /* @ngInject */
 
     function Products(Oboe) {
     	var vm = this;
@@ -19,18 +19,18 @@
         vm.sort = sort;
         vm.productsPerPage = productsPerPage;
         vm.getProducts = getProducts;
+        vm.getThumbnail = getThumbnail;
 
         var loading = false;
         var patternStr = '{id size price face date}';
         var cached = [];
         var count = 0;
-        var idleFlag = false;
+        var isFirst = true;
+        var sorting = false;
+        var arr = [];
         
         function displayAd (index) {
-            if (index % 20 === 0) {
-                return true;
-            }
-            return false;
+            return (index % 20 === 0);
         }
 
         function loadProducts () {
@@ -47,13 +47,11 @@
         }
 
         function start (stream) {
-            // the stream starts. create a reference
-            // console.log('stream started');
+            // console.log('Stream started');
         }
 
         function done () {
-                     
-            // console.log('stream is done');
+            // console.log('Stream is done');
         }
 
         function finished() {
@@ -65,69 +63,104 @@
         }
 
         function record (record) {
-            console.log('triggered');
 
             if (vm.products.length > 0 && record.face === vm.products[0].face) {
-                console.log('products finished, cached length is:' + cached.length)
                 vm.isDone = true;
-                idleFlag = false;
             }
             if (!vm.isDone) {
                 cached.push(record);
             }
             if (cached.length % vm.limitParam === 0) {
                 loading = false;
-                if (!idleFlag) {
+                if (isFirst) {
                     emptyCache();
-                    idleFlag = true;
+                    isFirst = false;
+                }
+                if (count < 2) {
+                    count++;
                     loadProducts();
                 }
-            }
-            if (vm.isDone && cached.length < vm.limitParam) {
-                emptyCache();
+                else {
+                    count = 0;
+                }
             }
         }
 
         function sort(sortParam) {
             vm.sortParam = sortParam;
-            vm.products = [];
-            cached = [];
-            vm.skipParam = 0;
-            vm.isDone = false;
+            sorting = true;
+            resetParams();
             getProducts();
         }
 
         function productsPerPage(limitParam) {
             vm.limitParam = limitParam;
-            vm.products = [];
-            cached = [];
-            vm.skipParam = 0;
-            vm.isDone = false;
+            resetParams();
             getProducts();
         }
 
         function getProducts() {
-            if (vm.isDone || idleFlag) {
-                emptyCache();
-                loadProducts();
-            }
-            else {
-               idleFlag = false;
-               loadProducts();
-            }
+            emptyCache();
+            loadProducts();
+        }
+
+        function getThumbnail(index) {
+            var adIndex = index % 16;
+            return '/ad/?r=' + arr[adIndex];
         }
 
         function emptyCache () {
-            var chunk = cached.slice(0,vm.limitParam);
-            vm.products = vm.products.concat(chunk);
-            cached.splice(0,vm.limitParam);
+            if (sorting) {
+                sorting = false;
+            }
+            else {
+                var chunk = cached.slice(0,vm.limitParam);
+                vm.products = vm.products.concat(chunk);
+                cached.splice(0,vm.limitParam);
+            }
         }
 
-        function getRemainingProducts() {
-            vm.products = vm.products.concat(cached);
+        function resetParams() {
+            vm.products = [];
+            cached = [];
+            vm.skipParam = 0;
+            vm.isDone = false;
+            loading = false;
+            isFirst = true;
+        }
+
+        function createAndShuffleArray() {
+            for (var i = 0; i <= 16; i++) {
+                arr[i] = i;
+            }
+            arr = shuffle(arr);
+            console.log(arr);
+        }
+
+        // Fisher-Yates shuffle algorithm
+        function shuffle(array) {
+            var counter = array.length, temp, index;
+
+            // While there are elements in the array
+            while (counter > 0) {
+                // Pick a random index
+                index = Math.floor(Math.random() * counter);
+
+                // Decrease counter by 1
+                counter--;
+
+                // And swap the last element with it
+                temp = array[counter];
+                array[counter] = array[index];
+                array[index] = temp;
+            }
+
+            return array;
         }
 
         // load initial batch of products
         getProducts();
+        // create an array containing all numbers from 0 through 16 and do a random shuffle 
+        createAndShuffleArray();
     }
 })();

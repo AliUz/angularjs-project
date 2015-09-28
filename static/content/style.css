@@ -25,12 +25,13 @@
   display: flex;
   
   -webkit-flex-flow: row wrap;
+  -webkit-justify-content: space-around;
   justify-content: space-around;
 }
 
 .flex-item-face {
   list-style: none;
-  background: #374140;
+  background: #7E8AA2;
   padding: 5px;
   width: 200px;
   height: 150px;
@@ -45,7 +46,7 @@
 
 .flex-item-price {
   list-style: none;
-  background: #374140;
+  background: #7E8AA2;
   padding: 5px;
   width: 200px;
   height: 20px;
@@ -57,7 +58,7 @@
 
 .flex-item-date {
   list-style: none;
-  background: #374140;
+  background: #7E8AA2;
   padding: 5px;
   width: 200px;
   height: 40px;
@@ -68,6 +69,12 @@
 }
 
 .flex-item-ad {
-  margin-left: 33.33%;
   width: 100%;
+  text-align: center;
+}
+
+.product-box {
+  display: block;
+  padding: 10px;
+  margin: 0 10px 0 10px;
 }
