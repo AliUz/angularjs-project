@@ -1,0 +1,34 @@
+{
+  "client": "./static/",
+  "server": "./",
+  "api": "/api",
+  "data": "/../../data/",
+  "test": "./src/client/test/",
+  "html": "./src/client/**/*.html",
+  "htmltemplates": "./static/app/**/*.html",
+  "vendorjs": [
+    "./bower_modules/jquery/dist/jquery.js",
+    "./bower_modules/angular/angular.js",
+    "./bower_modules/angular-ui-router/release/angular-ui-router.js",
+    "./bower_modules/oboe/dist/oboe-browser.min.js",
+    "./bower_modules/moment/moment.js"
+  ],
+  "css": [
+    "./static/content/all.css"
+  ],
+  "js": [
+    "./static/app/**/*module*.js",
+    "./static/app/**/*.js"
+  ],
+  "specs": [
+    "./src/client/test/specs/*.spec.js"
+  ],
+  "nodejs": [
+    "./lib/*.js"
+  ],
+  "images": [
+    "./static/images/*"
+  ],
+  "report": "./report/",
+  "build": "./build/"
+}

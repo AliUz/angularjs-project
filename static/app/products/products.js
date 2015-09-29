@@ -7,7 +7,7 @@
 
     /* @ngInject */
 
-    function Products(Oboe) {
+    function Products (Oboe) {
     	var vm = this;
     	vm.products = [];
         vm.displayAd = displayAd;
@@ -28,6 +28,7 @@
         var isFirst = true;
         var sorting = false;
         var arr = [];
+        var prefetchSize = 2;
         
         function displayAd (index) {
             return (index % 20 === 0);
@@ -47,11 +48,11 @@
         }
 
         function start (stream) {
-            // console.log('Stream started');
+            console.log('Stream started');
         }
 
         function done () {
-            // console.log('Stream is done');
+            console.log('Stream is done');
         }
 
         function finished() {
@@ -63,8 +64,9 @@
         }
 
         function record (record) {
-
             if (vm.products.length > 0 && record.face === vm.products[0].face) {
+
+                // If we encounter the first face again, then we have looped back to the beginning and we are done.
                 vm.isDone = true;
             }
             if (!vm.isDone) {
@@ -76,7 +78,9 @@
                     emptyCache();
                     isFirst = false;
                 }
-                if (count < 2) {
+
+                // While first batch of products is loaded, pre-fetch two more batches taking advantage of idle time.
+                if (count < prefetchSize) {
                     count++;
                     loadProducts();
                 }
@@ -88,6 +92,7 @@
 
         function sort(sortParam) {
             vm.sortParam = sortParam;
+            // Sort flag so that we don't show prefetched products from previous sort.
             sorting = true;
             resetParams();
             getProducts();
@@ -95,6 +100,8 @@
 
         function productsPerPage(limitParam) {
             vm.limitParam = limitParam;
+
+            // Reset all parameters.
             resetParams();
             getProducts();
         }
@@ -105,15 +112,24 @@
         }
 
         function getThumbnail(index) {
+
+            /* Ad API only supports up to 16 ads and then loops around, this is not the most optimal solution to get
+             * non-consecutive random images although in its current form it will never result in two identical ads to 
+             * appear twice in a row.
+             */
             var adIndex = index % 16;
             return '/ad/?r=' + arr[adIndex];
         }
 
         function emptyCache () {
             if (sorting) {
+
+                // Check if we are sorting by another parameter and set flag to false.
                 sorting = false;
             }
             else {
+
+                // Get a chunk of size <limitParam> and splice first <limitParam> elements from cache.
                 var chunk = cached.slice(0,vm.limitParam);
                 vm.products = vm.products.concat(chunk);
                 cached.splice(0,vm.limitParam);
@@ -137,19 +153,19 @@
             console.log(arr);
         }
 
-        // Fisher-Yates shuffle algorithm
+        // Fisher-Yates shuffle algorithm.
         function shuffle(array) {
             var counter = array.length, temp, index;
 
-            // While there are elements in the array
+            // While there are elements in the array.
             while (counter > 0) {
-                // Pick a random index
+                // Pick a random index.
                 index = Math.floor(Math.random() * counter);
 
-                // Decrease counter by 1
+                // Decrease counter by 1.
                 counter--;
 
-                // And swap the last element with it
+                // And swap the last element with it.
                 temp = array[counter];
                 array[counter] = array[index];
                 array[index] = temp;
@@ -158,9 +174,10 @@
             return array;
         }
 
-        // load initial batch of products
+        // Load initial batch of products.
         getProducts();
-        // create an array containing all numbers from 0 through 16 and do a random shuffle 
+
+        // Create an array containing all numbers from 0 through 16 and do a random shuffle.
         createAndShuffleArray();
     }
 })();

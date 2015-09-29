@@ -7,7 +7,7 @@
         .service('Oboe', Oboe)
         .factory('OboeStream', OboeStream);
         
-        Oboe.$inject = ['OboeStream'];
+        /* @ngInject */
 
         function Oboe(OboeStream) {
             return function (params) {

@@ -1,41 +1,42 @@
 <div class='top-bar'>
 <nav id="primary_nav_wrap">
 <ul>
-<li><a href="#">Sort</a>
-    <ul>
-      <li><a href="#" ng-model='vm.sortParam' ng-click='vm.sort("size")'>Size</a></li>
-      <li><a href="#" ng-model='vm.sortParam' ng-click='vm.sort("price")'>Price</a></li>
-      <li><a href="#" ng-model='vm.sortParam' ng-click='vm.sort("id")'>Id</a></li>
-    </ul>
-</li>
+	<li><a href="#">Sort</a>
+	    <ul>
+	      <li><a href="#" ng-model='vm.sortParam' ng-click='vm.sort("size")'>Size</a></li>
+	      <li><a href="#" ng-model='vm.sortParam' ng-click='vm.sort("price")'>Price</a></li>
+	      <li><a href="#" ng-model='vm.sortParam' ng-click='vm.sort("id")'>Id</a></li>
+	    </ul>
+	</li>
 </ul>
 <ul>
 <li><a href="#">Products per page</a>
     <ul>
-      <li><a href="#" ng-model='vm.limitParam' ng-click='vm.productsPerPage(40)'>40</a></li>
-      <li><a href="#" ng-model='vm.limitParam' ng-click='vm.productsPerPage(80)'>80</a></li>
-      <li><a href="#" ng-model='vm.limitParam' ng-click='vm.productsPerPage(100)'>100</a></li>
+		<li><a href="#" ng-model='vm.limitParam' ng-click='vm.productsPerPage(40)'>40</a></li>
+		<li><a href="#" ng-model='vm.limitParam' ng-click='vm.productsPerPage(80)'>80</a></li>
+		<li><a href="#" ng-model='vm.limitParam' ng-click='vm.productsPerPage(100)'>100</a></li>
     </ul>
 </li>
 </ul>
 </nav>
 </div>
 
-
 <div class='flex-container' when-scroll-ends="vm.getProducts()">
 	<div class='product-box' ng-repeat-start='product in vm.products track by product.id'> 
 	 	<ul>
-		<li class="flex-item-face" style="font-size:{{product.size}}px"> {{ ::product.face }} </li>
-		<li class="flex-item-price"> {{ ::product.price / 100 | currency : "$": 2}} </li> 
-		<li class="flex-item-date"> {{ ::product.date | DateFilter }} </li>
+		 	<!--- Set font size to product size, probably not the best way to set the font size dynamically -->
+			<li class="flex-item-face" style="font-size:{{product.size}}px"> {{ ::product.face }} </li>
+			<li class="flex-item-price"> {{ ::product.price / 100 | currency : "$": 2}} </li> 
+			<li class="flex-item-date"> {{ ::product.date | DateFilter }} </li>
 		</ul>
 	</div>
 	<div class='flex-item-ad' ng-if='vm.displayAd($index + 1)' ng-repeat-end> 
-	<img class='ad' ng-src='{{vm.getThumbnail($index)}}'/> 
+		<img class='ad' ng-src='{{vm.getThumbnail($index)}}'/> 
 	</div>
-<div>
-	<div ng-if='!vm.isDone'> <img src='../content/images/loading.gif'/> </div>
-	<div ng-if='vm.isDone'> ~end of catalogue~ </div>
+<div class='bottom-container'>
+	<div class='bottom-catalogue' ng-if='!vm.isDone'> <img src='../content/images/loading.gif'/> </div>
+	<div class='bottom-catalogue' ng-if='vm.isDone'> ~end of catalogue~ </div>
+</div>
 
 
 

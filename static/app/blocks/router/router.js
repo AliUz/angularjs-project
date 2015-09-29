@@ -5,7 +5,7 @@
         .module('app.router')
         .provider('routeHelper', routeHelperProvider);
 
-    routeHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+    /* @ngInject */
 
     function routeHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
 
@@ -13,7 +13,7 @@
 
         $locationProvider.html5Mode(true);
 
-        RouterHelper.$inject = ['$rootScope', '$state'];
+        /* @ngInject */
 
         function RouterHelper($rootScope, $state) {
             var hasOtherwise = false;
