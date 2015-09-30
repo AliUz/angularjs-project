@@ -23,9 +23,9 @@
                 getStates: getStates
             };
 
-            return service;
-
             handleRoutingErrors();
+
+            return service;
 
             function configureStates(states, otherwisePath) {
                 states.forEach(function(state) {

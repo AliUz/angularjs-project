@@ -68,6 +68,7 @@
 
                 // If we encounter the first face again, then we have looped back to the beginning and we are done.
                 vm.isDone = true;
+                loading = false;
             }
             if (!vm.isDone) {
                 cached.push(record);
@@ -81,7 +82,6 @@
 
                 // While first batch of products is loaded, pre-fetch two more batches taking advantage of idle time.
                 if (count < prefetchSize) {
-                    console.log('sort condition: ' + sorting + ' sort param: ' + vm.sortParam);            
                     count++;
                     loadProducts();
                 }
@@ -158,7 +158,6 @@
                 arr[i] = i;
             }
             arr = shuffle(arr);
-            console.log(arr);
         }
 
         // Fisher-Yates shuffle algorithm.
