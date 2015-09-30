@@ -228,8 +228,26 @@ function analyzejscs(sources) {
  	};
 
  	var exec;
- 	return plug.nodemon(options);
+ 	return plug.nodemon(options)
+    .on('start', function() {
+        openBrowser();
+    });
  }
+
+
+/**
+ * Open browser to specified uri
+ */
+
+ function openBrowser() {
+    var options = {
+        uri: 'http://localhost:8000',
+        app: 'Google Chrome'
+    };
+    gulp.src('./static/index.html')
+    .pipe(plug.open(options));
+ }
+
 /**
  * Start Plato inspector and visualizer
  */

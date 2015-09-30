@@ -15,7 +15,7 @@
             };
         }
 
-        OboeStream.$inject = ['$q'];
+        /* @ngInject */
 
         function OboeStream($q) {
             return {

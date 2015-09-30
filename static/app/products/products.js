@@ -48,11 +48,11 @@
         }
 
         function start (stream) {
-            console.log('Stream started');
+            // console.log('Stream started');
         }
 
         function done () {
-            console.log('Stream is done');
+            // console.log('Stream is done');
         }
 
         function finished() {
@@ -60,7 +60,7 @@
         }
 
         function error (error) {
-            console.log('Stream error: ' + error);
+            console.log('Stream error: ' + JSON.stringify(error));
         }
 
         function record (record) {
@@ -81,6 +81,7 @@
 
                 // While first batch of products is loaded, pre-fetch two more batches taking advantage of idle time.
                 if (count < prefetchSize) {
+                    console.log('sort condition: ' + sorting + ' sort param: ' + vm.sortParam);            
                     count++;
                     loadProducts();
                 }
@@ -91,11 +92,18 @@
         }
 
         function sort(sortParam) {
-            vm.sortParam = sortParam;
-            // Sort flag so that we don't show prefetched products from previous sort.
-            sorting = true;
-            resetParams();
-            getProducts();
+
+            // Disable sorting while products are loading to prevent cache from emptying early
+            if (!loading) {
+                vm.sortParam = sortParam;
+                // Sort flag so that we don't show prefetched products from previous sort.
+                sorting = true;
+                resetParams();
+                getProducts();
+            }
+            else {
+                console.log('Sort is disabled while products are loading!');
+            }
         }
 
         function productsPerPage(limitParam) {
