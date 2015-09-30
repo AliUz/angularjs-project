@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "glob": "^5.0.15",
+    "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.7.0",
     "gulp-autoprefixer": "^3.0.2",
     "gulp-bytediff": "^1.0.0",
